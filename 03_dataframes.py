@@ -153,3 +153,71 @@ print(df.nlargest(3,"cantidad"))
 
 # Método .dtypes nos devuelve el tipo de datos de cada columna
 print(df.dtypes)
+
+
+# Ejercicio1
+def is_palindrome(word):
+    """
+    Devuelve si la palabra word es palíndroma.
+    Args:
+     word: Palabra en formato string
+    Returns:
+     isPalindrome: Booleano 
+    """
+    word = word.lower()
+    l = []
+    isPalindrome = True
+    for c in word:
+        l.append(c)
+    n = len(l) 
+    for i in range(int(n / 2)):
+        if l[i] != l[n - (i + 1)]:
+            isPalindrome = False
+    return isPalindrome        
+
+words = ["sol", "ala", "cama", "duro", "bueno", "kayak", "marea", "rotor", "misterio", "acurruca"]
+data = {"word": words,
+        "length": map(len, words),
+        "start": map(lambda w: w[0], words),
+        "end": map(lambda w: w[-1], words),
+        "isPalindrome": map(is_palindrome, words)}
+words = pd.DataFrame(data=data)
+words = words.set_index("word")
+words.index.names = [None]
+print(words)
+
+# Ejercicio2
+print(words.head(5))
+print(words.tail(5))
+words_copy = words.copy()
+words_copy.rename(columns={"length":"Longitud",
+                           "start":"Inicio",
+                           "end":"Fin",
+                           "isPalindrome":"Palindromo"},inplace=True)
+print(words_copy)
+
+# Bucles y dataframes
+# Métodos .iterrows() y .itertuples()
+d = {"name": ["Juan Gabriel", "María", "Ricardo"],
+     "surname": ["Gomila", "Santos", "Alberich"],
+     "gender": ["m", "f", "m"]}
+df = pd.DataFrame(d)
+print(df)
+
+# .iterrows() Iterando sobre las filas de un dataframe. Nos devuelve el indice de cada fila
+for i, j in df.iterrows():
+    print(f"Indice de la fíla: {i}, \n\nContenido de la fila:\n{j}\n\n\n")
+
+# .itertuples() Iterando sobre las filas de un dataframe. Nos devuelve en formato tupla el indice de cada fila
+for i in df.itertuples():
+    print(f"Contenido de la fila:\n{i}\n\n")
+
+# Iterando sobre las columnas de un dataframe.
+columns = list(df)
+for c in columns:
+    print(f"Columna: {c}:\n{df[c]}\n\n")
+
+
+letters_freq_df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/cities.csv",)
+#letters_freq_df.columns = ["Letra", "Frecuencia", "Porcentaje"]
+print(letters_freq_df)
