@@ -217,7 +217,15 @@ columns = list(df)
 for c in columns:
     print(f"Columna: {c}:\n{df[c]}\n\n")
 
-
-letters_freq_df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/cities.csv",)
-#letters_freq_df.columns = ["Letra", "Frecuencia", "Porcentaje"]
+# Cargando en un DataFrame CON un CSV
+# Desde una url
+letters_freq_df = pd.read_csv("https://raw.githubusercontent.com/witwall/gdocjdbc/master/doc/Simpsons%20Characters.csv")
 print(letters_freq_df)
+
+letters_freq_df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/letter_frequency.csv")
+letters_freq_df.columns = ["Letra", "Frecuencia", "Porcentaje"]
+print(letters_freq_df)
+
+# Cargando un DataFrame con un JSON
+fichero_json = pd.read_json("https://api.exchangerate-api.com/v4/latest/EUR")
+print(fichero_json.head())
